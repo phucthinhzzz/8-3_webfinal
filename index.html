@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gửi người đẹp trước màn hình ❤️  ✨</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@500;700&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="watermark-footer">Made by PT siu víp ❤️</div>
+
+    <!-- Battle Scene Animation -->
+    <div id="battle-scene" class="hidden">
+        <div id="battle-text"></div>
+        <div class="monster-container">
+            <div id="sadness-monster">👾</div>
+            <div class="monster-name">Nỗi Buồn</div>
+        </div>
+        <img id="hero" src="images/superman.png" alt="Superman" class="hidden">
+        <div id="power-beam"></div>
+    </div>
+    
+    <div id="countdown-screen">
+        <div id="mystery-circle"></div>
+        <div id="countdown-number"></div>
+        <button id="start-btn" onclick="initCountdown()">
+            <i class="fa-solid fa-lock"></i> Ấn vào đây ( ko mất acc đâu khỏi lo)
+        </button>
+    </div>
+
+    <div id="petals-container"></div>
+    <audio id="music" loop><source src="audio/min.mp3" type="audio/mpeg"></audio>
+
+    <div class="card hidden" id="screen0">
+        <div class="title">Chào người đẹp trước màn hình.... <i class="fa-solid fa-sparkles"></i></div>
+        <p class="message">Cho mình biết tên của cậu nhé ?</p>
+        <div class="input-group">
+            <input type="text" id="userName" class="input-cute" placeholder="Nhập tên ở đây nè..." autocomplete="off">
+        </div>
+        <button class="btn-cute shiny" onclick="saveName()">Okela <i class="fa-solid fa-check"></i></button>
+    </div>
+
+    <div class="card hidden" id="screen1">
+        <div class="title">💌 <span class="display-name highlight-name"></span> ơi...</div>
+        <div class="envelope-wrapper" onclick="openLetter()">
+            <div class="envelope">
+                <div class="flap"></div>
+                <div class="body-env"></div>
+                <div class="letter-inner">
+                    <p>8/3 vui vẻ!</p>
+                </div>
+            </div>
+        </div>
+        <p class="message">Cậu có một thông điệp bí mật!<br><small>(Ấn vào thư để mở)</small></p>
+    </div>
+
+    <div class="card hidden" id="screen2">
+        <div id="flowerSection">
+            <div class="title" style="font-size: 18px;">Nếu giờ có bông hoa rớt dô đầu <span class="display-name"></span> thì cậu thích là bông gì? 🌷</div>
+            <div class="flower-container">
+                <img src="images/flowers.png" class="flowers" alt="Flowers">
+                <div class="flower-area flower1" onclick="selectFlower(1)"></div>
+                <div class="flower-area flower2" onclick="selectFlower(2)"></div>
+                <div class="flower-area flower3" onclick="selectFlower(3)"></div>
+            </div>
+        </div>
+        <div id="result" class="hidden">
+            <div class="wish-card">
+                <div class="wish-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+                <div class="sparkle s1">✨</div>
+                <div class="sparkle s2">💖</div>
+                <div class="sparkle s3">✨</div>
+                <div id="wishText" class="message typewriter"></div>
+            </div>
+            <button class="btn-continue" id="btn-next" style="display:none;" onclick="nextToFinalWish()">Còn nữa ..... <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+    </div>
+
+    <div class="card hidden" id="screen3">
+        <div class="title">8/3 zui zẻ ❤️</div>
+        <div class="wish-card">
+            <div class="wish-icon"><i class="fa-solid fa-star"></i></div>
+            <div class="sparkle s1">💖</div>
+            <div class="sparkle s2">✨</div>
+            <div class="sparkle s3">💖</div>
+            <div class="message typewriter" id="final-message"></div>
+        </div>
+        <button class="btn-skip-fancy hidden-btn" id="btn-to-game" onclick="goToGame()">Nhận quà may mắn <i class="fa-solid fa-gift"></i></button>
+    </div>
+
+    <div class="card hidden" id="screen-game">
+        <div class="title">Thử vận may nhé! 🍀</div>
+        <p id="game-status">Chọn 1 hộp duy nhất , chỉ có 1 hộp có quà ( quà xịn lắm nhaa , mở hên xui nha người đẹp hihi)</p>
+        <div class="gift-grid-6">
+            <div class="gift-item" onclick="handleGame(this)">🎁</div>
+            <div class="gift-item" onclick="handleGame(this)">🎁</div>
+            <div class="gift-item" onclick="handleGame(this)">🎁</div>
+            <div class="gift-item" onclick="handleGame(this)">🎁</div>
+            <div class="gift-item" onclick="handleGame(this)">🎁</div>
+            <div class="gift-item" onclick="handleGame(this)">🎁</div>
+        </div>
+        <button class="btn-skip-fancy" id="btn-consolation" style="display: none; margin: 20px auto 0;" onclick="showMystery()">Nhận quà an ủi <i class="fa-solid fa-wand-magic-sparkles"></i></button>
+    </div>
+
+    <div id="mystery-overlay" class="hidden"><div class="typewriter-mystery" id="mystery-text"></div></div>
+    
+    <div id="flower-bouquet-screen" class="hidden">
+        <div class="title-bouquet">Tặng cậu bó hoa đẹp nhất nè , 8/3 zui zẻ thế giới ✨</div nhaaaa!>
+        <div class="bouquet-wrapper">
+            <img src="images/tulip.jpg" class="tulip-image">
+            <div id="names-overlay"></div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
+        
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
